@@ -1,8 +1,6 @@
 #include <fstream>
-#include <cstdio>
-#include <cassert>
-#include <string.h>
-//#include <iostream>
+#include <cstring>
+#include <iostream>
 
 using namespace std;
 
@@ -73,20 +71,43 @@ int main(){
     puts("Enter file name:");
     gets(file_name);
 
+
     if((strchr(file_name,'*') != NULL)||(strchr(file_name,'"') != NULL) ||
            (strchr(file_name,'<') != NULL)||(strchr(file_name,'>') != NULL)||
            (strchr(file_name,'?') != NULL)||(strchr(file_name,'|') != NULL)){
         puts("Error! Incorrect file name");
-        return 0;
+        return 1;
     }
 
 
-    if(!(((strrchr(file_name,':') - file_name + 1) == 2)&&
-         (((strrchr(file_name,'\\') - file_name + 1) == 3)||
-          isalpha(1) != 0))){
+    if((strchr(file_name,':') != NULL)&&
+        (!(((strchr(file_name,':') - file_name + 1) == 2)&&
+         (((strchr(file_name,'\\') - file_name + 1) == 3)||
+          isalpha(1) != 0)))){
         puts("Error! Incorrect file name");
-        return 0;
+        return 1;
     }
+
+
+    if(((strrchr(file_name,'\0') - (strchr(file_name,'\\'))) <
+        ((strchr(file_name,'\0') - (strrchr(file_name,'.')))))||
+            ((strrchr(file_name,'.') == NULL)&&(strrchr(file_name,'\\') == NULL)))
+            strcat(file_name,".txt");
+    else{
+        char extention[5];
+        strcpy(extention, (strrchr(file_name, '.')));
+
+        for(int i=1;i<sizeof(extention);i++)
+            tolower(extention[i]);
+
+        if(strcmp(extention,".txt") != 0){
+            puts("Error! Wrong extention");
+            return 2;
+        }
+    }
+
+ 
+
 
 
 
