@@ -98,17 +98,33 @@ int main(){
         strcpy(extention, (strrchr(file_name, '.')));
 
         for(int i=1;i<sizeof(extention);i++)
-            tolower(extention[i]);
+            extention[i] = tolower(extention[i]);
 
+        //puts(extention);
         if(strcmp(extention,".txt") != 0){
             puts("Error! Wrong extention");
             return 2;
         }
     }
 
- 
+    //puts(file_name);
+    FILE* ptrfile = fopen(file_name,"r");
+    if(ptrfile == NULL){
+        puts("File opening error");
+        return 3;
+    }
+
+    fseek(ptrfile,0,SEEK_END);
+    int size = (ftell(ptrfile));
+    cout<<"\nFile size: "<<size<<endl;
 
 
+    char *string = new char[size];
+    fread(string,size,1,ptrfile);
+
+    char sought_string[256];
+    puts("Enter a string: ");
+    gets(sought_string);
 
 
 }
