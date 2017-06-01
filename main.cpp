@@ -123,7 +123,7 @@ int main(){
     fread(string,size,1,ptrfile);
 
     char sought_string[256];
-    puts("Enter a string: ");
+    puts("Enter a string for searching: ");
     gets(sought_string);
 
 
